@@ -19,7 +19,9 @@ import {
   MINIO_ENDPOINT,
   MINIO_ACCESS_KEY,
   MINIO_SECRET_KEY,
-  MINIO_BUCKET
+  MINIO_BUCKET,
+  MEILISEARCH_HOST,
+  MEILISEARCH_API_KEY
 } from 'lib/constants';
 
 loadEnv(process.env.NODE_ENV, process.cwd());
@@ -27,7 +29,7 @@ loadEnv(process.env.NODE_ENV, process.cwd());
 const medusaConfig = {
   projectConfig: {
     databaseUrl: DATABASE_URL,
-    databaseLogging: true,
+    databaseLogging: false,
     redisUrl: REDIS_URL,
     workerMode: WORKER_MODE,
     http: {
@@ -125,6 +127,24 @@ const medusaConfig = {
           },
         ],
       },
+    }] : []),
+    ...(MEILISEARCH_HOST && MEILISEARCH_API_KEY ? [{
+      resolve: '@rokmohar/medusa-plugin-meilisearch',
+      options: {
+        config: {
+          host: MEILISEARCH_HOST,
+          apiKey: MEILISEARCH_API_KEY
+        },
+        settings: {
+          products: {
+            indexSettings: {
+              searchableAttributes: ['title', 'description', 'variant_sku'],
+              displayedAttributes: ['title', 'description', 'variant_sku', 'thumbnail', 'handle']
+            },
+            primaryKey: 'id'
+          }
+        }
+      }
     }] : [])
   ],
   plugins: []
