@@ -31,7 +31,7 @@ const Hero = () => {
 
       <div className="relative z-10 flex h-full flex-col items-center justify-center bg-gradient-to-r from-black/50 to-black/30 px-4 text-center">
         <h1 className="text-5xl font-bold text-white md:text-6xl lg:text-7xl drop-shadow-lg">
-          <span className="block text-amber-400 animate-fade-in">Truly Cinnamon</span>
+  <span className="block text-amber-400 animate-fade-in">Spices & Blends</span>
           <span className="block mt-4 animate-fade-in [animation-delay:200ms]">
             Where Spices Come Alive
           </span>
